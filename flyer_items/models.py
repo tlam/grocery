@@ -13,7 +13,7 @@ class FlyerItem(models.Model):
     price_prefix = models.CharField(max_length=255, default='')
     price_suffix = models.CharField(max_length=255, default='')
     sale_text = models.CharField(max_length=255, default='')
-    disclaimer_text = models.CharField(max_length=255, default='')
+    disclaimer_text = models.TextField(default='')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
