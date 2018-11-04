@@ -129,6 +129,6 @@ FLYER = {
 }
 
 try:
-    from dev_settings import *
+    from grocery.dev_settings import *
 except ImportError:
     pass

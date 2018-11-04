@@ -4,7 +4,8 @@ from flyer_items.models import FlyerItem
 
 
 class FlyerItemAdmin(admin.ModelAdmin):
-    list_display = ('name', 'display', 'sale_text', 'disclaimer_text', 'created_at',)
+    list_display = ('name', 'display', 'sale_text', 'disclaimer_text', 'store', 'created_at',)
+    list_filter = ('store',)
     readonly_fields = ('created_at',)
     search_fields = ['name']
 

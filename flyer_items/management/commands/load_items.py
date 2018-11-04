@@ -12,9 +12,10 @@ from stores.models import Store
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        store = Store.objects.get(pk=1)
-        flyer_id = 991370
+        store = Store.objects.get(pk=3)
+        flyer_id = 2076841
         flyer_url = settings.FLYER['url'].format(flyer_id)
+        print(flyer_url)
         response = requests.get(flyer_url)
         flyer = response.json()
 
@@ -37,19 +38,22 @@ class Command(BaseCommand):
             try:
                 FlyerItem.objects.create(
                     name=item['name'],
-                    description=item['description'],
+                    description=item['description'] or '',
                     store=store,
                     external_id=item['id'],
                     flyer_id=item['flyer_id'],
                     price=item['current_price'],
-                    price_prefix=item['pre_price_text'],
-                    price_suffix=item['price_text'],
-                    sale_text=item['sale_story'],
-                    disclaimer_text=item['disclaimer_text'],
+                    price_prefix=item['pre_price_text'] or '',
+                    price_suffix=item['price_text'] or '',
+                    sale_text=item['sale_story'] or '',
+                    disclaimer_text=item['disclaimer_text'] or '',
+                    image_url=item['image_url']
                 )
-            except IntegrityError:
+            except IntegrityError as e:
+                pprint.pprint(item)
+                print(e)
                 continue
             except Exception as e:
-                print e.message
+                print(e)
                 pprint.pprint(item)
 
